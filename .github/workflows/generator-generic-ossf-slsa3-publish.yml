@@ -11,19 +11,18 @@ jobs:
       digests: ${{ steps.hash.outputs.digests }}
     steps:
       - uses: actions/checkout@v4
+      
       - name: Generate subject for provenance
         id: hash
         run: |
           set -euo pipefail
-          files=$(find cpp/ -name "*.hpp" 2>/dev/null)
+
+          files=$(find cpp/ -name "*.hpp" -type f 2>/dev/null)
           
-          if [ -z "$files" ]; then
-            echo "ERROR: No .hpp files found in cpp/ directory"
-            exit 1
           fi
           
-          echo "Files found for provenance:"
           echo "$files"
+          
           echo "digests=$(sha256sum $files | base64 -w0)" >> "${GITHUB_OUTPUT}"
 
   provenance:
