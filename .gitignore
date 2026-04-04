@@ -1,3 +1,6 @@
+# ==========================================
+# 🚀 C++ / C / General Compiled Files
+# ==========================================
 # Prerequisites
 *.d
 
@@ -22,10 +25,6 @@
 *.dylib
 *.dll
 
-# Fortran module files
-*.mod
-*.smod
-
 # Compiled Static libraries
 *.lai
 *.la
@@ -37,5 +36,37 @@
 *.out
 *.app
 
-# debug information files
+# Debug information
 *.dwo
+
+# ==========================================
+# 🎮 C# / Visual Studio / Unity Specific
+# ==========================================
+# C# Build Folders
+[Bb]in/
+[Oo]bj/
+[Tt]emp/
+
+# Unity folders (Nếu bạn làm Game Unity)
+[Ll]ibrary/
+[Ll]ogs/
+[Uu]ser[Pp]refs/
+/[Aa]ssets/AssetStoreTools*
+
+# Visual Studio files
+.vs/
+*.user
+*.suo
+*.sln
+*.csproj
+*.unitypackage
+
+# ==========================================
+# 🛠️ System & Tools
+# ==========================================
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Log files
+*.log
