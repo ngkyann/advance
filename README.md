@@ -26,7 +26,7 @@ get_clone(): Khôi phục về trạng thái đã lưu.
 
 swap_clone(): Hoán vị nhanh giữa dữ liệu thực và bản sao.
 
-Biến đổi kiểu (Conversion): Tích hợp sẵn to_int(), to_double(), to_char(), và to_string() với khả năng tự động xử lý chuỗi và số.
+Biến đổi kiểu (Conversion): Tích hợp sẵn to_ll(), to_double(), to_char(), và to_str() với khả năng tự động xử lý chuỗi và số.
 
 Hàm tiện ích: * join(): Nối các phần tử thành chuỗi với định dạng tùy chỉnh.
 
