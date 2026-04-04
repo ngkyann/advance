@@ -61,7 +61,3 @@ int main() {
 License: MIT License.
 
 Security: SLSA Level 3 Certified.
-
-Product ID: 2Y+5$ZR.4÷>·9|X (Phiên bản 2.0).
-
-Mỗi sản phẩm thuộc adv:: sở hữu một mã định danh duy nhất để ngăn chặn việc tái bản và giả mạo mã nguồn.
