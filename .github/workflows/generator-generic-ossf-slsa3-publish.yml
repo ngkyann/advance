@@ -17,11 +17,17 @@ jobs:
         run: |
           set -euo pipefail
           
-          files=$(find cpp/advance/include/adv -name "*.hpp" 2>/dev/null)
+          # Tim file hpp trong thu muc moi
+          files=$(find cpp/advance/include/adv -name "*.hpp" -type f 2>/dev/null)
           
+          if [ -z "$files" ]; then
+            echo "::error::Khong tim thay file .hpp nao!"
+            exit 1
           fi
           
-          echo "$files"
+          echo "Files found: $files"
+          
+          # Tao digest cho SLSA
           echo "digests=$(sha256sum $files | base64 -w0)" >> "${GITHUB_OUTPUT}"
 
   provenance:
