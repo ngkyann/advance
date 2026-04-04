@@ -1,15 +1,4 @@
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-
-# This workflow lets you generate SLSA provenance file for your project.
-# The generation satisfies level 3 for the provenance requirements - see https://slsa.dev/spec/v0.1/requirements
-# The project is an initiative of the OpenSSF (openssf.org) and is developed at
-# https://github.com/slsa-framework/slsa-github-generator.
-# The provenance file can be verified using https://github.com/slsa-framework/slsa-verifier.
-# For more information about SLSA and how it improves the supply-chain, visit slsa.dev.
-
+# .github/workflows/generator-generic-ossf-slsa3-publish.yml
 name: SLSA generic generator
 on:
   workflow_dispatch:
@@ -21,23 +10,26 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       digests: ${{ steps.hash.outputs.digests }}
-
     steps:
       - uses: actions/checkout@v4
       - name: Generate subject for provenance
         id: hash
         run: |
           set -euo pipefail
-          files=$(find include/adv -name "*.hpp")
+          files=$(find include/adv -name "*.hpp" 2>/dev/null)
+          if [ -z "$files" ]; then
+            echo "ERROR: No .hpp files found"
+            exit 1
+          fi
           echo "digests=$(sha256sum $files | base64 -w0)" >> "${GITHUB_OUTPUT}"
 
   provenance:
     needs: [build]
     permissions:
-      actions: read   # To read the workflow path.
-      id-token: write # To sign the provenance.
-      contents: write # To add assets to a release.
-    uses: slsa-framework/slsa-github-generator/.github/workflows/generator_generic_slsa3.yml@v1.4.0
+      actions: read
+      id-token: write
+      contents: write
+    uses: slsa-framework/slsa-github-generator/.github/workflows/generator_generic_slsa3.yml@v2.2.0
     with:
       base64-subjects: "${{ needs.build.outputs.digests }}"
-      upload-assets: true # Optional: Upload to a new release
+      upload-assets: true
