@@ -76,7 +76,7 @@ class errors
     }
 
     // =======================
-    // Phuong thuc loi - Phien ban ma loi (tra ve int)
+    // Phuong thuc loi - Phien ban ma loi (tra ve short)
     // =======================
 
     /// @brief Tra ve ma loi out_of_range
@@ -176,13 +176,13 @@ template <typename T, typename Container = std::vector<T>>
 class store
 {
   private:
-    Container m_data;                      //Luu tru noi bo
+    Container m_data;	//Luu tru noi bo
     std::unique_ptr<Container> m_clone;    //Ban sao noi bo
-    thread_local inline static errors s_error; //Quan li loi
-    struct AlwaysTrueTag {};
+    thread_local inline static errors s_error;	//Quan li loi
+    struct AlwaysTrueTag {};	//Cau truc rong
 
   public:
-    /// Con tro lap/ham tuong duong
+    /// Cac loai con tro/kieu
     using iterator = typename Container::iterator;
     using const_iterator = typename Container::const_iterator;
     using reverse_iterator = typename Container::reverse_iterator;
@@ -196,7 +196,7 @@ class store
     using value_type = T;
 
     // =======================
-    // Khoi tao & Pha huy
+    // Khoi tao & Xoa
     // =======================
 
     /// @brief Khoi tao mac dinh
@@ -479,7 +479,7 @@ class store
 	}
 
     // =======================
-    // Con tro lap dau/cuoi
+    // Con tro dau/cuoi
     // =======================
 
     iterator begin() noexcept { return m_data.begin(); }
