@@ -1,9 +1,11 @@
 🚀 Advance C++ Library (adv::)
+
 Advance là một hệ sinh thái các thư viện C++ Modern Header-only, được xây dựng với mục tiêu: "Code nhanh hơn - Ít lỗi hơn - Thân thiện hơn".
 
 Dự án này cung cấp các công cụ và cấu trúc dữ liệu cải tiến, giúp lập trình viên C++ xử lý các tác vụ phức tạp bằng những cú pháp ngắn gọn và an toàn, mang lại trải nghiệm giống như các ngôn ngữ bậc cao (Python, JavaScript,... ) nhưng vẫn giữ nguyên hiệu năng của C++.
 
 ✨ Triết lý thiết kế
+
 Header-only: Chỉ cần include là dùng, không cần cấu hình build phức tạp.
 
 Tính đa hình Container: adv::store giờ đây có thể tùy biến lớp lưu trữ cơ sở (mặc định là std::vector, nhưng hỗ trợ cả std::deque, std::list và có thể mở rộng thêm nhưng yêu cầu người dùng quản lý tốt hơn).
@@ -13,7 +15,9 @@ Quản lý lỗi Hybrid: Hệ thống adv::errors cho phép chuyển đổi linh
 An toàn dữ liệu: Tích hợp cơ chế clone để sao lưu và phục hồi trạng thái dữ liệu tức thời, dùng unique_ptr giúp nhẹ và nhanh hơn.
 
 📦 Các thành phần chính
+
 1. adv::store<T, Container> (v2.0 - Current)
+
 Cấu trúc dữ liệu cải tiến với các tính năng vượt trội so với STL truyền thống:
 
 Slicing (Cắt lát): Hỗ trợ toán tử operator() để trích xuất mảng con: store(start, end, step).
@@ -22,29 +26,27 @@ Truy cập linh hoạt: Hỗ trợ chỉ số âm (Python-style) như [-1] để
 
 Quản lý bản sao (Cloning): 
 
-set_clone(): Tạo điểm lưu trữ hiện tại.
+- set_clone(): Tạo điểm lưu trữ hiện tại.
 
-get_clone(): Khôi phục về trạng thái đã lưu.
+- get_clone(): Khôi phục về trạng thái đã lưu.
 
-swap_clone(): Hoán vị nhanh giữa dữ liệu thực và bản sao.
+- swap_clone(): Hoán vị nhanh giữa dữ liệu thực và bản sao.
 
 Biến đổi kiểu (Conversion): Tích hợp sẵn to_ll(), to_double(), to_char(), và to_str() với khả năng tự động xử lý chuỗi và số.
 
 Hàm tiện ích:
 
-join(): Nối các phần tử thành chuỗi với định dạng tùy chỉnh.
+- join(): Nối các phần tử thành chuỗi với định dạng tùy chỉnh.
 
-range(): Khởi tạo mảng số theo bước nhảy (giống range trong Python).
+- range(): Khởi tạo mảng số theo bước nhảy (giống range trong Python).
 
-filter() & transform(): Xử lý dữ liệu theo phong cách Functional Programming.
+- filter() & transform(): Xử lý dữ liệu theo phong cách Functional Programming.
 
 🛠 Cách sử dụng
 Yêu cầu: C++17 trở lên.
 
-C++
 #include "store.hpp"
 #include <iostream>
-
 int main() {
     // Khởi tạo store với vector
     adv::store<int> s = {1, 2, 3, 4, 5};
@@ -61,5 +63,6 @@ int main() {
 
     return 0;
 }
+
 ⚖️ Bản quyền và bảo mật
 License: MIT License.
