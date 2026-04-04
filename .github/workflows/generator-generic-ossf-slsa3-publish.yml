@@ -16,13 +16,12 @@ jobs:
         id: hash
         run: |
           set -euo pipefail
-
-          files=$(find cpp/ -name "*.hpp" -type f)
+          
+          files=$(find cpp/advance/include/adv -name "*.hpp" 2>/dev/null)
           
           fi
           
           echo "$files"
-          
           echo "digests=$(sha256sum $files | base64 -w0)" >> "${GITHUB_OUTPUT}"
 
   provenance:
