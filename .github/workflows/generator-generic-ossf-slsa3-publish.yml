@@ -17,7 +17,7 @@ jobs:
         run: |
           set -euo pipefail
 
-          files=$(find cpp/ -name "*.hpp" -type f 2>/dev/null)
+          files=$(find cpp/ -name "*.hpp" -type f)
           
           fi
           
