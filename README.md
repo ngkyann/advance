@@ -63,5 +63,3 @@ int main() {
 }
 ⚖️ Bản quyền và bảo mật
 License: MIT License.
-
-Security: SLSA Level 3 Certified.
