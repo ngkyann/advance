@@ -1,37 +1,85 @@
-name: SLSA generic generator
+name: SLSA3 Provenance Generator
+
 on:
   workflow_dispatch:
   release:
     types: [created]
+  push:
+    branches: [main, master]
+    tags: ['v*']
+
+permissions:
+  contents: read
 
 jobs:
   build:
     runs-on: ubuntu-latest
     outputs:
       digests: ${{ steps.hash.outputs.digests }}
+      files-found: ${{ steps.files.outputs.count }}
     steps:
-      - uses: actions/checkout@v4
-      
-      - name: Generate subject for provenance
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Collect source files
+        id: files
+        run: |
+          set -euo pipefail
+
+          # Find C++ header files
+          cpp_files=$(find cpp/advance/include -name "*.hpp" -type f 2>/dev/null || echo "")
+
+          # Find C++ source files
+          cpp_src=$(find cpp/advance/examples -name "*.cpp" -type f 2>/dev/null | head -20 || echo "")
+
+          # Find C# files
+          cs_files=$(find csharp/Advance -name "*.cs" -type f 2>/dev/null | head -20 || echo "")
+
+          # Combine all files
+          all_files="${cpp_files} ${cpp_src} ${cs_files}"
+          all_files=$(echo "$all_files" | xargs -n1 | sort -u | xargs)
+
+          if [ -z "$all_files" ]; then
+            echo "WARNING: No source files found. Checking available paths..."
+            ls -la . || true
+            echo "::error::No C++ headers, sources, or C# files found in expected directories"
+            exit 1
+          fi
+
+          file_count=$(echo "$all_files" | wc -w)
+          echo "Files found: $file_count"
+          echo "$all_files"
+          echo "count=$file_count" >> "${GITHUB_OUTPUT}"
+
+      - name: Generate SLSA3 subject hash
         id: hash
         run: |
           set -euo pipefail
-          
-          # Tim file hpp trong thu muc moi
-          files=$(find cpp/advance/include/adv -name "*.hpp" -type f 2>/dev/null)
-          
-          if [ -z "$files" ]; then
-            echo "::error::Khong tim thay file .hpp nao!"
+
+          # Find all source files (C++ and C#)
+          cpp_files=$(find cpp/advance/include -name "*.hpp" -type f 2>/dev/null || echo "")
+          cpp_src=$(find cpp/advance/examples -name "*.cpp" -type f 2>/dev/null | head -20 || echo "")
+          cs_files=$(find csharp/Advance -name "*.cs" -type f 2>/dev/null | head -20 || echo "")
+
+          all_files="${cpp_files} ${cpp_src} ${cs_files}"
+          all_files=$(echo "$all_files" | xargs -n1 | sort -u | xargs)
+
+          if [ -z "$all_files" ]; then
+            echo "::error::No source files found for SLSA provenance"
             exit 1
           fi
-          
-          echo "Files found: $files"
-          
-          # Tao digest cho SLSA
-          echo "digests=$(sha256sum $files | base64 -w0)" >> "${GITHUB_OUTPUT}"
+
+          echo "Generating digests for files:"
+          echo "$all_files" | xargs ls -lh
+
+          # Create subject file with digests
+          digests=$(echo "$all_files" | xargs sha256sum | base64 -w0)
+          echo "digests=$digests" >> "${GITHUB_OUTPUT}"
+          echo "Provenance subject generated successfully"
 
   provenance:
     needs: [build]
+    if: needs.build.outputs.files-found != '0'
     permissions:
       actions: read
       id-token: write
@@ -40,3 +88,18 @@ jobs:
     with:
       base64-subjects: "${{ needs.build.outputs.digests }}"
       upload-assets: true
+      # Optional: Generate attestation
+      compile-generator: true
+
+  verify:
+    needs: [build]
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - name: Report build status
+        run: |
+          echo "Build job status: ${{ job.status }}"
+          echo "Files collected: ${{ needs.build.outputs.files-found }}"
+          if [ "${{ needs.build.outputs.files-found }}" = "0" ]; then
+            echo "WARNING: No source files were found"
+          fi
