@@ -35,7 +35,7 @@ Mọi dòng code trong không gian này đều được xây dựng dựa trên 
 Dự án được chia thành các phân vùng chuyên biệt. Để xem chi tiết các tính năng, benchmark, ví dụ sử dụng và hướng dẫn di chuyển, vui lòng truy cập vào từng thư mục:
 
 * **[📁 C++ Workspace](./cpp/advance)**: Hệ sinh thái các thư viện Modern C++ tối ưu, phục vụ cho các thuật toán chuyên sâu và giải quyết các bài toán hiệu năng cao.  
-  *(Chứa `store.hpp`, báo cáo tối ưu, test benchmark, so sánh trước/sau…)*
+  *(Chứa `store.hpp` và vài thứ khác)*
 
 * **[📁 C# & Unity Workspace](./csharp/Advance)**: Nơi hỗ trợ Game, ứng dụng OOP và quy trình phát triển Game.  
   *(Chứa `Store<T>`, `ErrorManager`, ví dụ sử dụng, chuyển đổi C++ → C# chi tiết…)*
