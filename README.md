@@ -35,7 +35,7 @@ Mọi dòng code trong không gian này đều được xây dựng dựa trên 
 Dự án được chia thành các phân vùng chuyên biệt. Để xem chi tiết các tính năng, benchmark, ví dụ sử dụng và hướng dẫn di chuyển, vui lòng truy cập vào từng thư mục:
 
 * **[📁 C++ Workspace](./cpp/advance)**: Hệ sinh thái các thư viện Modern C++ tối ưu, phục vụ cho các thuật toán chuyên sâu và giải quyết các bài toán hiệu năng cao.  
-  *(Chứa `store_optimized.hpp`, báo cáo tối ưu, test benchmark, so sánh trước/sau…)*
+  *(Chứa `store.hpp`, báo cáo tối ưu, test benchmark, so sánh trước/sau…)*
 
 * **[📁 C# & Unity Workspace](./csharp/Advance)**: Nơi hỗ trợ Game, ứng dụng OOP và quy trình phát triển Game.  
   *(Chứa `Store<T>`, `ErrorManager`, ví dụ sử dụng, chuyển đổi C++ → C# chi tiết…)*
@@ -60,4 +60,5 @@ Tôi sử dụng các công nghệ hiện đại để đảm bảo quy trình p
 
 * Mọi đóng góp về lỗi bảo mật, vui lòng xem tại **[SECURITY.md]** ở mỗi ngôn ngữ/thư viện.
 * Toàn bộ mã nguồn được phát hành dưới giấy phép **MIT License** – bạn hoàn toàn tự do sử dụng, sửa đổi và phân phối.
-* *Created with ❤️ by [Nguyen Ky An](https://github.com/ngkyann). "Code faster, stay safer."*
+* *Created with ❤️ by [Nguyen Ky An](https://github.com/ngkyann). 
+* *"Code faster, stay safer."
